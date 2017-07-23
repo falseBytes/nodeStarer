@@ -1,21 +1,21 @@
-const AuthenticationController = require('./controllers/authentication'),
-    express = require('express'),
-    passport = require('passport'),
-    passportService = require('./config/passport');
+const AuthenticationController = require('./controllers/authentication');
+const express = require('express');
+const passport = require('passport');
+const passportService = require('./config/passport');
 
 
 // Middleware to require login.auth
 
 const requireAuth = passport.authenticate('jwt', {
-    session: false
+    session: false,
 });
 const requireLogin = passport.authenticate('local', {
-    session: false
+    session: false,
 });
 
 module.exports = (app) => {
-    const apiRoutes = express.Router(),
-        authRoutes = express.Router();
+    const apiRoutes = express.Router();
+    const authRoutes = express.Router();
 
 
     /**

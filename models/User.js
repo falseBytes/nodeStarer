@@ -1,54 +1,52 @@
 /**
  * Created by hatim on 12/07/17.
  */
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    bcrypt = require('bcrypt-nodejs');
-
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt-nodejs');
 
 const UserSchema = new Schema({
     email: {
         type: String,
         lowercase: true,
         unique: true,
-        required: true
+        required: true,
     },
     password: {
         type: String,
         required: true,
-        select: true
+        select: true,
     },
     profile: {
         firstName: {
-            type: String
+            type: String,
         },
         lastName: {
-            type: String
-        }
+            type: String,
+        },
     },
     role: {
         type: String,
         enum: ['Admin', 'Member'],
-        default: 'Member'
+        default: 'Member',
     },
     createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now(),
     },
     resetPassword: {
-        type: String
+        type: String,
     },
     resetPasswordExpires: {
-        type: Date
-    }
+        type: Date,
+    },
 });
 
 
 // Generate a hash for the password before any save operation
-UserSchema.pre('save', function (next) {
-    const user = this,
-        SALT_FACTOR = 5;
+UserSchema.pre('save', function(next) {
+    const user = this;
+    const SALT_FACTOR = 5;
 
     if (user.isModified('password')) {
         bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
@@ -59,12 +57,12 @@ UserSchema.pre('save', function (next) {
                 this.password = hash;
                 next();
             });
-        })
+        });
     }
 });
 
 // Method to compare password while login
-UserSchema.methods.comparePassword = function (condidatePassword, cb) {
+UserSchema.methods.comparePassword = function(condidatePassword, cb) {
     bcrypt.compare(condidatePassword, this.password, (err, isMatch) => {
         if (err) return cb(err);
         cb(null, isMatch);
@@ -72,8 +70,8 @@ UserSchema.methods.comparePassword = function (condidatePassword, cb) {
 };
 
 // Create the model
-let UserModel = mongoose.model('User', UserSchema)
+let UserModel = mongoose.model('User', UserSchema);
 
 module.exports = {
-    'User': UserModel
+    'User': UserModel,
 };

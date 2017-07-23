@@ -1,30 +1,30 @@
 /**
  * Created by hatim on 12/07/17.
  */
-const express = require('express'),
-    app = express(),
-    passport = require('passport'),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose'),
-    morgan = require('morgan'),
-    logger = require('./util/logger'),
-    router = require('./router');
-config = require('./config/config');
+const express = require('express');
+const app = express();
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
+const logger = require('./util/logger');
+const router = require('./router');
+const config = require('./config/config');
 
 /**
  * Configuration
  */
-const appPort = config.get('port'),
-    appAddr = config.get('ip');
+const appPort = config.get('port');
+const appAddr = config.get('ip');
 
 // Database Connection
 // TODO: Add connection options
 mongoose.connect(config.get('db.url')).then(
     () => {
-        logger.info("Successfully connected to the mongodb instance")
+        logger.info('Successfully connected to the mongodb instance');
     },
-    err => {
-        logger.err("Unable to connect to the the mongodb instance")
+    (err) => {
+        logger.err('Unable to connect to the the mongodb instance');
     }
 );
 
@@ -32,11 +32,11 @@ mongoose.connect(config.get('db.url')).then(
 /**
  * Middleware 
  */
-app.use(morgan("combined", ({
-    stream: logger.stream
+app.use(morgan('combined', ({
+    stream: logger.stream,
 }))); // combined : Standard Apache combined log output.
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
 })); // Parses url encoded bodies
 app.use(bodyParser.json()); // Send JSON reponses
 
@@ -54,4 +54,4 @@ router(app);
 
 app.listen(appPort, appAddr, () => {
     logger.info('Starting server on port : ' + appPort);
-})
+});

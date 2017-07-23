@@ -2,14 +2,14 @@
  * Created by hatim on 12/07/17.
  */
 
-const winston = require('winston'),
-        fs = require('fs');
+const winston = require('winston');
+const fs = require('fs');
 
-const  env = process.env.NODE_ENV || 'dev',
-    logDir = 'log';
+const env = process.env.NODE_ENV || 'dev';
+const logDir = 'log';
 
-    // Create the log directory if it does not exist
-if(!fs.existsSync(logDir)) {
+// Create the log directory if it does not exist
+if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
 
@@ -25,22 +25,22 @@ let logger = new winston.Logger({
             json: true,
             maxsize: 524880,
             maxFiles: 5,
-            colorize: false
+            colorize: false,
         }),
         new winston.transports.Console({
             level: 'debug',
             handleExceptions: true,
             humanReadableUnhandledException: true,
             json: false,
-            colorize: true
-        })
+            colorize: true,
+        }),
     ],
-    exitOnError: false
+    exitOnError: false,
 });
 
 module.exports = logger;
 module.exports.stream = {
     write: (message, encoding) => {
         logger.info(message);
-    }
-}
+    },
+};

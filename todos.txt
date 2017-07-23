@@ -1,6 +1,7 @@
 TODO:
-    - Eslint
+    - Eslint : Multiple declaration with one const
     - PM2
+    - Travis
     - Test auth with jwt
     - socket.io
     - GridFS

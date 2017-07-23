@@ -1,28 +1,29 @@
-const jwt = require('jsonwebtoken'),
-
-    config = require('./../config/config'),
-    User = require('../models/User').User,
-    getUserInfo = require('../helpers.js').getUserInfo;
-
+const jwt = require('jsonwebtoken');
+const config = require('./../config/config');
+const User = require('../models/User').User;
+const getUserInfo = require('../helpers.js').getUserInfo;
 
 
 // Generate JWT
 const generateJwt = (user) => {
     return jwt.sign(user, config.get('auth.secret'), {
-        expiresIn: 604800
+        expiresIn: 604800,
     });
 };
 
 /**
  * Login Route
+ * @param {object} req
+ * @param {object} res
+ * @param {callback} next
  */
 exports.login = (req, res, next) => {
     const userInfo = getUserInfo(req.user);
     res.status(200).json({
         token: `JWT ${generateJwt(userInfo)}`,
-        user: userInfo
+        user: userInfo,
     });
-}
+};
 
 
 /**
@@ -39,7 +40,7 @@ exports.register = (req, res, next) => {
     // TODO: Add fields validation 
 
     User.findOne({
-        email
+        email,
     }, (err, existingUser) => {
         if (err) {
             return next(err);
@@ -50,8 +51,8 @@ exports.register = (req, res, next) => {
             password,
             profile: {
                 firstName,
-                lastName
-            }
+                lastName,
+            },
         });
 
 
@@ -61,9 +62,8 @@ exports.register = (req, res, next) => {
             }
             const token = generateJwt(user);
             res.status(201).json({
-                token: `JWT ${token}`
+                token: `JWT ${token}`,
             });
         });
     });
-
-}
+};

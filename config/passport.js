@@ -7,25 +7,24 @@ const passport = require('passport'),
     LocalStrategy = require('passport-local');
 
 
-
 // Setting username field to email and passwordField to password.
 const localOptions = {
-    usernameField: 'email'
+    usernameField: 'email',
 };
 
 
 // Setting up local login strategy
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
     User.findOne({
-        email
+        email,
     }, (err, user) => {
         if (err) {
             return done(err);
         }
         if (!user) {
             return done(null, false, {
-                message: 'Your login details could not be verified, Please try again.'
-            })
+                message: 'Your login details could not be verified, Please try again.',
+            });
         }
         console.log(`${email}:${password}`);
         user.comparePassword(password, (err, isMatch) => {
@@ -34,13 +33,12 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
             }
             if (!isMatch) {
                 return done(null, false, {
-                    message: 'Your login details could not be found. Please try again'
-                })
+                    message: 'Your login details could not be found. Please try again',
+                });
             }
             return done(null, user);
         });
     });
-
 });
 
 
@@ -48,7 +46,7 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeader(),
     secretOrKey: config.get('auth.secret'),
-    session: false
+    session: false,
 };
 
 
