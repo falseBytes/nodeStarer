@@ -18,10 +18,25 @@ const config = convict({
         "env": "IP_ADRESSS"
     },
     port: {
-        Pdoc: "The port to bind.",
+        doc: "The port to bind.",
         format: "port",
         default: 8080,
         env: "PORT"
+    },
+    auth: {
+        secret: {
+            doc: "The secret used by bycrypt to encrypt password",
+            format: "*",
+            default: "",
+            sensitive: true
+        }
+    },
+    db: {
+        url: {
+            doc: "The url of the mongodb db",
+            format: String,
+            default: "mongodb://localhost:27017"
+        }
     }
 });
 
@@ -30,6 +45,8 @@ const env = config.get('env');
 config.load(require('./config.' + env));
 
 // Perform validation
-config.validate({allowed: 'strict'});
+config.validate({
+    allowed: 'strict'
+});
 
 module.exports = config;

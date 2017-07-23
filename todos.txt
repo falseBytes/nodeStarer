@@ -1,0 +1,7 @@
+TODO:
+    - Eslint
+    - PM2
+    - Test auth with jwt
+    - socket.io
+    - GridFS
+    - Desing system : files part

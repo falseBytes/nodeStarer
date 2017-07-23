@@ -3,7 +3,7 @@
  */
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcrypt');
+    bcrypt = require('bcrypt-nodejs');
 
 
 
@@ -16,7 +16,8 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: true
     },
     profile: {
         firstName: {
@@ -34,15 +35,22 @@ const UserSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now()
+    },
+    resetPassword: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
     }
 });
 
 
 // Generate a hash for the password before any save operation
-UserSchema.pre('save', (next) => {
-    const SALT_FACTOR = 5;
+UserSchema.pre('save', function (next) {
+    const user = this,
+        SALT_FACTOR = 5;
 
-    if (this.isModified('password')) {
+    if (user.isModified('password')) {
         bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
             if (err) return next(err);
 
@@ -56,8 +64,8 @@ UserSchema.pre('save', (next) => {
 });
 
 // Method to compare password while login
-UserSchema.methods.comparePassword = (candidatePassword, cb) => {
-    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+UserSchema.methods.comparePassword = function (condidatePassword, cb) {
+    bcrypt.compare(condidatePassword, this.password, (err, isMatch) => {
         if (err) return cb(err);
         cb(null, isMatch);
     });
@@ -67,5 +75,5 @@ UserSchema.methods.comparePassword = (candidatePassword, cb) => {
 let UserModel = mongoose.model('User', UserSchema)
 
 module.exports = {
-    UserModel
+    'User': UserModel
 };
