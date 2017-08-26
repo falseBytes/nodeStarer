@@ -5,12 +5,12 @@ module.exports = {
    */
   apps: [
 
-    // SycAPI application
+    // nodeStarter application
     {
-      'name': 'SycAPI',
-      'script': 'index.js',
+      'name': 'nodeStarter',
+      'script': './index.js',
       'exec_mode': 'cluster',
-      'instances': 3,
+      'instances': 1,
       'log_date_format': 'YYYY-MM-DD HH:mm Z',
       'watch': './*',
       'ignore_watch': ['node_modules'],

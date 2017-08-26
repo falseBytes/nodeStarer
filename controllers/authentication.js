@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('./../config/config');
 const User = require('../models/User').User;
-const getUserInfo = require('../helpers.js').getUserInfo;
+const getUserInfo = require('../utils/helpers.js').getUserInfo;
 
 
 // Generate JWT
@@ -19,8 +19,8 @@ const generateJwt = (user) => {
  */
 exports.login = (req, res, next) => {
     const userInfo = getUserInfo(req.user);
+    res.set('Authorization', `JWT ${generateJwt(userInfo)}`);
     res.status(200).json({
-        token: `JWT ${generateJwt(userInfo)}`,
         user: userInfo,
     });
 };
@@ -31,11 +31,7 @@ exports.login = (req, res, next) => {
  */
 
 exports.register = (req, res, next) => {
-    // TODO: Use the spread operator instead
-    const email = req.body.email;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const password = req.body.password;
+    const {email, firstName, lastName, password} = req.body;
 
     // TODO: Add fields validation 
 
@@ -60,10 +56,8 @@ exports.register = (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            const token = generateJwt(user);
-            res.status(201).json({
-                token: `JWT ${token}`,
-            });
+            res.set('Authorization', `JWT ${generateJwt(user)}`);
+            res.status(201).end();
         });
     });
 };

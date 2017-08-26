@@ -1,6 +1,6 @@
 TODO:
     - Eslint : Multiple declaration with one const
-    - PM2
+    - PM2 : Init config done play with it more
     - Travis
     - Test auth with jwt
     - socket.io

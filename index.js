@@ -7,7 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const logger = require('./util/logger');
+const logger = require('./utils/logger');
 const router = require('./router');
 const config = require('./config/config');
 
