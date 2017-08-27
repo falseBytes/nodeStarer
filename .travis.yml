@@ -4,7 +4,7 @@ node_js:
 deploy:
   provider: heroku
   api_key:
-    secure: ""
+    secure: "f19da7c3-3bfc-4cda-b675-f56881ab62b3"
 cache:
   directories:
     -"node_modules"
