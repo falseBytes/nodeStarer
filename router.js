@@ -22,7 +22,7 @@ module.exports = (app) => {
      * API Entry point
      */
     apiRoutes.get('/', (req, res, next) => {
-        logger.info('Node quick starter API works');
+        res.status(200).end('Node quick starter REST API works');
     });
 
     /**
