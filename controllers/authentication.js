@@ -45,10 +45,8 @@ exports.register = (req, res, next) => {
         const user = new User({
             email,
             password,
-            profile: {
-                firstName,
-                lastName,
-            },
+            firstName,
+            lastName,
         });
 
 

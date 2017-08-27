@@ -17,13 +17,11 @@ const UserSchema = new Schema({
         required: true,
         select: true,
     },
-    profile: {
-        firstName: {
+    firstName: {
             type: String,
         },
-        lastName: {
+    lastName: {
             type: String,
-        },
     },
     role: {
         type: String,

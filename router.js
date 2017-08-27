@@ -1,4 +1,5 @@
 const AuthenticationController = require('./controllers/authentication');
+const userController = require('./controllers/user');
 const express = require('express');
 const passport = require('passport');
 const passportService = require('./config/passport');
@@ -17,6 +18,7 @@ const requireLogin = passport.authenticate('local', {
 module.exports = (app) => {
     const apiRoutes = express.Router();
     const authRoutes = express.Router();
+    const userRoutes = express.Router();
 
     /**
      * API Entry point
@@ -26,12 +28,18 @@ module.exports = (app) => {
     });
 
     /**
+     * User ressource routes
+     */
+
+     apiRoutes.use('/users', userRoutes);
+     userRoutes.get('', userController.getAll);
+
+
+    /**
      * Auth Routes
      */
     apiRoutes.use('/auth', authRoutes);
     authRoutes.post('/register', AuthenticationController.register);
-
-
     authRoutes.post('/login', requireLogin, AuthenticationController.login);
 
 

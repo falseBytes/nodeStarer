@@ -55,3 +55,6 @@ router(app);
 app.listen(appPort, () => {
     logger.info('Starting server on port : ' + appPort);
 });
+
+
+module.exports = app; // Export the server for testing
