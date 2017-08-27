@@ -15,11 +15,11 @@ const config = require('./config/config');
  * Configuration
  */
 const appPort = config.get('port');
-const appAddr = config.get('ip');
 
 // Database Connection
-// TODO: Add connection options
-mongoose.connect(config.get('db.url')).then(
+// TODO: Add connection options  
+mongoose.Promise = global.Promise; // Use the native JS promise
+mongoose.connect(config.get('db.url'), {useMongoClient: true} ).then(
     () => {
         logger.info('Successfully connected to the mongodb instance');
     },
