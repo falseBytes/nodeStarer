@@ -1,8 +1,4 @@
 module.exports = {
-  /**
-   * Application configuration section
-   * http://pm2.keymetrics.io/docs/usage/application-declaration/
-   */
   apps: [
 
     // nodeStarter application
@@ -13,7 +9,7 @@ module.exports = {
       'instances': 1,
       'log_date_format': 'YYYY-MM-DD HH:mm Z',
       'watch': './*',
-      'ignore_watch': ['node_modules'],
+      'ignore_watch': ['node_modules', 'log/*'],
       'env': {
         NODE_ENV: 'dev',
         PORT: 8080,
