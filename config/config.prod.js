@@ -6,9 +6,9 @@ const config = {};
 // config.env = 'dev';
 
 config.auth = {};
-config.auth.secret = 'sycsecret';
+config.auth.secret = 'nqstarter';
 config.db = {};
-config.db.url = 'mongodb://localhost:27017';
+config.db.url = 'mongodb://admin:admin@ds159493.mlab.com:59493/node-quick-starter';
 
 
 module.exports = config;
