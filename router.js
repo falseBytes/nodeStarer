@@ -2,6 +2,7 @@ const AuthenticationController = require('./controllers/authentication');
 const express = require('express');
 const passport = require('passport');
 const passportService = require('./config/passport');
+const logger = require('./utils/logger');
 
 
 // Middleware to require login.auth
@@ -17,6 +18,12 @@ module.exports = (app) => {
     const apiRoutes = express.Router();
     const authRoutes = express.Router();
 
+    /**
+     * API Entry point
+     */
+    apiRoutes.get('/', (req, res, next) => {
+        logger.info('Node quick starter API works');
+    });
 
     /**
      * Auth Routes
