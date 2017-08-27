@@ -24,7 +24,7 @@ mongoose.connect(config.get('db.url'), {useMongoClient: true} ).then(
         logger.info('Successfully connected to the mongodb instance');
     },
     (err) => {
-        logger.err('Unable to connect to the the mongodb instance');
+        logger.error('Unable to connect to the the mongodb instance');
     }
 );
 
