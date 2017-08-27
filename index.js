@@ -52,6 +52,6 @@ router(app);
  * Run the app
  */
 
-app.listen(appPort, appAddr, () => {
+app.listen(appPort, () => {
     logger.info('Starting server on port : ' + appPort);
 });
