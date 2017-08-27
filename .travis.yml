@@ -3,6 +3,7 @@ node_js:
   - "lts/*"
 deploy:
   provider: heroku
+  app: node-quick-start
   api_key:
     secure: "f19da7c3-3bfc-4cda-b675-f56881ab62b3"
 cache:
