@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js"
+        "preinstall": "npm install pm2 -g",
+        "start": "pm2 start ecosystem.config.js --attach"
     },
     "author": "Ahadri Hatim <ahadrihatim@gmail.com>",
     "license": "ISC",
